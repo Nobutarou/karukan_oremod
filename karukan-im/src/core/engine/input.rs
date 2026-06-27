@@ -253,6 +253,8 @@ impl InputMethodEngine {
         key: &KeyEvent,
         shift_active: bool,
     ) -> EngineResult {
+        // ctrl-j 出るかチェック
+        //eprintln!("KEY: keysym={:?} ctrl={} raw={:?}", key.keysym, key.modifiers.control_key, key.modifiers);
         // Handle Ctrl+key shortcuts
         if key.modifiers.control_key {
             match key.keysym {
@@ -268,7 +270,9 @@ impl InputMethodEngine {
                 Keysym::KEY_E | Keysym::KEY_E_UPPER => return self.move_caret_end(),
                 // Ctrl+F: move right (Emacs-style Right)
                 Keysym::KEY_F | Keysym::KEY_F_UPPER => return self.move_caret_right(),
-                Keysym::KEY_J => return self.commit_composing(),
+                // xev だと ctrl-j は \n なんだよね。ctrl-return 扱いかな？
+                Keysym::KEY_J | Keysym::KEY_J_UPPER => return self.commit_composing(), 
+                Keysym::RETURN => return self.commit_composing(),
                 _ => {}
             }
         }
