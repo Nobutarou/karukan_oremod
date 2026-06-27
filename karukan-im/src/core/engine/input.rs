@@ -293,6 +293,18 @@ impl InputMethodEngine {
             Keysym::HOME => self.move_caret_home(),
             Keysym::END => self.move_caret_end(),
             Keysym::KEY_L => self.commit_composing(),
+            Keysym::KEY_COMMA => {
+              self.commit_composing();
+              self.input_char('。');
+              self.commit_composing();
+              return EngineResult::consumed();
+            },
+            Keysym::KEY_COLON => {
+              self.commit_composing();
+              self.input_char('、');
+              self.commit_composing();
+              return EngineResult::consumed();
+            },
             _ => {
                 if let Some(ch) = key.to_char()
                     && !key.modifiers.control_key
