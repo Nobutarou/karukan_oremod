@@ -186,7 +186,8 @@ impl InputMethodEngine {
                 ch.is_ascii_uppercase() || (shift_active && ch.is_ascii_alphabetic());
 
             if is_shift_alpha && self.input_mode != InputMode::Alphabet {
-                self.input_mode = InputMode::Alphabet;
+            // alphabet モード嫌い
+                //self.input_mode = InputMode::Alphabet;
             }
             let ch = if self.input_mode == InputMode::Alphabet && is_shift_alpha {
                 ch.to_ascii_uppercase()
@@ -301,8 +302,27 @@ impl InputMethodEngine {
                     // fcitx5 may resolve Shift into the keysym (sending 'A' instead of 'a'+shift).
                     let is_shift_alpha =
                         ch.is_ascii_uppercase() || (shift_active && ch.is_ascii_alphabetic());
-
+                    //eprintln!(
+                    //    "[SHIFT DEBUG] ch='{}' keysym={:?} shift_active={} is_shift_alpha={} input_mode={:?}",
+                    //    ch,
+                    //    key.keysym,
+                    //    shift_active,
+                    //    is_shift_alpha,
+                    //    self.input_mode
+                    //);
                     // シフトで英数モードに入りたくない。
+                    // 確定だけして return する。
+                    if is_shift_alpha {
+                    //    eprintln!("[SHIFT DEBUG] >>> Entered is_shift_alpha block: committing composing");
+                    //    self.commit_composing();
+                    //    self.flush_romaji_to_composed();
+                    // kokoDe とすると、「え」だけ残る。live を clear したせいか？
+                    //    self.live.text.clear();
+                    //    eprintln!("[SHIFT DEBUG] >>> Finished commit, returning consumed");
+                    //    return EngineResult::consumed();
+                    } else {
+                    //  eprintln!("[SHIFT DEBUG] >>> NOT entering is_shift_alpha block");
+                    }
                     //if is_shift_alpha && self.input_mode != InputMode::Alphabet {
                     //    // Bake katakana before switching so preedit doesn't revert
                     //    if self.input_mode == InputMode::Katakana {
@@ -312,12 +332,6 @@ impl InputMethodEngine {
                     //    self.flush_romaji_to_composed();
                     //    self.live.text.clear();
                     //}
-                    // シフトが押されてたら確定。
-                    if shift_active {
-                        self.commit_composing();
-                        self.flush_romaji_to_composed();
-                        self.live.text.clear();
-                    }
                     let ch = if self.input_mode == InputMode::Alphabet && is_shift_alpha {
                         ch.to_ascii_uppercase()
                     } else {
