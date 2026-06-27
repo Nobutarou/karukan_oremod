@@ -1,0 +1,46 @@
+# Rust
+target/
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.pyc
+
+# Claude Code
+.claude/
+
+build
+*.bin
+data/
+# Tracked data: symbol descriptions / variants for the rewriter
+!karukan-engine/data/
+*.json
+*.cache
+
+.fake
+# macOS IME (karukan-macos)
+karukan-macos/.build/
+karukan-macos/out/
