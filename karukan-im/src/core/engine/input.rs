@@ -270,9 +270,8 @@ impl InputMethodEngine {
                 Keysym::KEY_E | Keysym::KEY_E_UPPER => return self.move_caret_end(),
                 // Ctrl+F: move right (Emacs-style Right)
                 Keysym::KEY_F | Keysym::KEY_F_UPPER => return self.move_caret_right(),
-                // xev だと ctrl-j は \n なんだよね。ctrl-return 扱いかな？
+                // ctrl 押すと大文字で入るので、こうなってる。多分 KEY_J は不要。
                 Keysym::KEY_J | Keysym::KEY_J_UPPER => return self.commit_composing(), 
-                Keysym::RETURN => return self.commit_composing(),
                 _ => {}
             }
         }
@@ -303,12 +302,19 @@ impl InputMethodEngine {
                     let is_shift_alpha =
                         ch.is_ascii_uppercase() || (shift_active && ch.is_ascii_alphabetic());
 
-                    if is_shift_alpha && self.input_mode != InputMode::Alphabet {
-                        // Bake katakana before switching so preedit doesn't revert
-                        if self.input_mode == InputMode::Katakana {
-                            self.bake_katakana();
-                        }
-                        self.input_mode = InputMode::Alphabet;
+                    // シフトで英数モードに入りたくない。
+                    //if is_shift_alpha && self.input_mode != InputMode::Alphabet {
+                    //    // Bake katakana before switching so preedit doesn't revert
+                    //    if self.input_mode == InputMode::Katakana {
+                    //        self.bake_katakana();
+                    //    }
+                    //    self.input_mode = InputMode::Alphabet;
+                    //    self.flush_romaji_to_composed();
+                    //    self.live.text.clear();
+                    //}
+                    // シフトが押されてたら確定。
+                    if shift_active {
+                        self.commit_composing();
                         self.flush_romaji_to_composed();
                         self.live.text.clear();
                     }
