@@ -123,7 +123,9 @@ impl InputMethodEngine {
         if key.modifiers.control_key && key.keysym == Keysym::SPACE {
             self.converters.romaji.reset();
             self.input_buf.clear();
-            self.input_buf.insert("\u{3000}");
+            // 半角スペースの方が良くね？
+            //self.input_buf.insert("\u{3000}");
+            self.input_buf.insert(" ");
             let preedit = self.set_composing_state();
             return EngineResult::consumed()
                 .with_action(EngineAction::UpdatePreedit(preedit))
@@ -145,9 +147,12 @@ impl InputMethodEngine {
         //
         // The full-width space gesture from Empty in any mode is
         // `Ctrl+Space` (above), which seeds a Composing session.
+        //
+        // 半角スペースの方が良くね？
         if key.keysym == Keysym::SPACE && !key.modifiers.control_key && !key.modifiers.alt_key {
             return if self.input_mode == InputMode::Hiragana {
-                EngineResult::consumed().with_action(EngineAction::Commit("\u{3000}".to_string()))
+                //EngineResult::consumed().with_action(EngineAction::Commit("\u{3000}".to_string()))
+                EngineResult::consumed().with_action(EngineAction::Commit(" ".to_string()))
             } else {
                 EngineResult::not_consumed()
             };
@@ -292,18 +297,17 @@ impl InputMethodEngine {
             Keysym::RIGHT => self.move_caret_right(),
             Keysym::HOME => self.move_caret_home(),
             Keysym::END => self.move_caret_end(),
-            Keysym::KEY_L => self.commit_composing(),
-            Keysym::KEY_COMMA => {
-              self.commit_composing();
+            //Keysym::KEY_L => self.commit_composing(),
+            Keysym::KEY_DOT => {
+              // commit_composing挟むの本当に難しい
+              //  self.commit_composing();
               self.input_char('。');
-              self.commit_composing();
-              return EngineResult::consumed();
+              self.start_conversion(false)
+              //  self.commit_composing();
             },
-            Keysym::KEY_COLON => {
-              self.commit_composing();
+            Keysym::KEY_COMMA => {
               self.input_char('、');
-              self.commit_composing();
-              return EngineResult::consumed();
+              self.start_conversion(false)
             },
             _ => {
                 if let Some(ch) = key.to_char()
@@ -323,10 +327,11 @@ impl InputMethodEngine {
                     //    self.input_mode
                     //);
                     // シフトで英数モードに入りたくない。
-                    // 確定だけして return する。
+                    // 確定もしたいのだが、何やっても上手くいかない。
                     if is_shift_alpha {
                     //    eprintln!("[SHIFT DEBUG] >>> Entered is_shift_alpha block: committing composing");
-                    //    self.commit_composing();
+                    //   self.commit_composing();
+                    //   self.input_buf.insert(&ch.to_string());
                     //    self.flush_romaji_to_composed();
                     // kokoDe とすると、「え」だけ残る。live を clear したせいか？
                     //    self.live.text.clear();

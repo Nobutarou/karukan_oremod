@@ -1926,11 +1926,6 @@ descriptions:
   🫷: ちょっと待って
   🫸: ちょっと待って
 entries:
-  - char: 'ストレス'
-    readings:
-      - すとれす
-    triggers:
-      - stress
   - char: '#️⃣'
     readings:
       - かこみすうじ

@@ -72,7 +72,7 @@ impl Keysym {
     pub const KEY_L_UPPER: Keysym = Keysym(0x004c); // uppercase 'L'
     pub const KEY_P: Keysym = Keysym(0x0070); // lowercase 'p'
     pub const KEY_P_UPPER: Keysym = Keysym(0x0050); // uppercase 'P'
-    pub const KEY_Q: Keysym = Keysym(0x0071); // lowercase 'p'
+    pub const KEY_Q: Keysym = Keysym(0x0071); // lowercase 'q'
 
     // Function keys
     pub const F1: Keysym = Keysym(0xffbe);
@@ -88,6 +88,10 @@ impl Keysym {
     pub const F11: Keysym = Keysym(0xffc8);
     pub const F12: Keysym = Keysym(0xffc9);
 
+    // other keys
+    pub const KEY_DOT: Keysym = Keysym(0x002e); // '.'
+    pub const KEY_COMMA: Keysym = Keysym(0x002c); // ','
+                                                  
     /// Check if this keysym represents a printable character
     pub fn is_printable(&self) -> bool {
         // ASCII printable range (0x20-0x7e)
@@ -127,7 +131,7 @@ impl Keysym {
     pub fn is_mode_toggle_key(&self) -> bool {
         matches!(
             *self,
-            Self::ALT_R | Self::SUPER_R | Self::META_R | Self::HYPER_R
+            Self::ALT_R | Self::SUPER_R | Self::META_R | Self::HYPER_R 
         )
     }
 
