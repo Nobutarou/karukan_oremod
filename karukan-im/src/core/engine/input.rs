@@ -132,6 +132,16 @@ impl InputMethodEngine {
                 .with_action(EngineAction::UpdateAuxText(self.format_aux_composing()));
         }
 
+        // ctrl+j は hiragana モードに入る
+        if key.modifiers.control_key && key.keysym == Keysym::KEY_J {
+          self.input_mode = InputMode::Alphabet;
+          return EngineResult::consumed();
+        }
+        if key.modifiers.control_key && key.keysym == Keysym::KEY_J_UPPER {
+          self.input_mode = InputMode::Alphabet;
+          return EngineResult::consumed();
+        }
+
         // Bare Space from Empty state:
         //
         // * Hiragana mode → commit a full-width `　` directly, matching
@@ -332,7 +342,9 @@ impl InputMethodEngine {
                     && !key.modifiers.alt_key
                 {
                     // 記号が入力されたら input_char() して start_conversion() しよう。
-                    if !ch.is_ascii_uppercase() && !ch.is_ascii_alphabetic() {
+                    // '-' はカタカナに必須なので除外しよう。
+                    // ':' は連続 emoji モードに入るのに必要？ → 関係なかった
+                    if !ch.is_ascii_uppercase() && !ch.is_ascii_alphabetic() && ch != '-' {
                       self.input_char(ch);
                       return self.start_conversion(false);
                     };
