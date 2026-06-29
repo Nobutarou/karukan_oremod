@@ -184,6 +184,22 @@ impl InputMethodEngine {
             && !key.modifiers.control_key
             && !key.modifiers.alt_key
         {
+            // 記号が入力されたら input_char() して start_conversion() しよう。
+            if !ch.is_ascii_uppercase() && !ch.is_ascii_alphabetic() {
+              // 全角文字にしたいものを並べる
+              // https://code.atsuhiro-me.net/unicode-fullwidth/
+              // 記号はこっちで :xxxxx 方式でやるのが良いと思う
+              // karukan-engine/data/emoji.yml
+              let ore_zenkaku = match ch {
+                '.' => '。',
+                ',' => '、',
+                '[' => '「',
+                ']' => '」',
+                _ => ch,
+              };
+              return EngineResult::consumed().with_action(EngineAction::Commit(ore_zenkaku.to_string()));
+            };
+
             // Detect Shift+letter: shift modifier with alphabetic, OR uppercase keysym.
             // fcitx5 may resolve Shift into the keysym (sending 'A' instead of 'a'+shift),
             // so we must also check for uppercase to handle both cases.
@@ -297,23 +313,30 @@ impl InputMethodEngine {
             Keysym::RIGHT => self.move_caret_right(),
             Keysym::HOME => self.move_caret_home(),
             Keysym::END => self.move_caret_end(),
+            // 記号全部まとめて input_char && start_convertion にした
             //Keysym::KEY_L => self.commit_composing(),
-            Keysym::KEY_DOT => {
-              // commit_composing挟むの本当に難しい
-              //  self.commit_composing();
-              self.input_char('。');
-              self.start_conversion(false)
-              //  self.commit_composing();
-            },
-            Keysym::KEY_COMMA => {
-              self.input_char('、');
-              self.start_conversion(false)
-            },
+            //Keysym::KEY_DOT => {
+            //  // commit_composing挟むの本当に難しい
+            //  //  self.commit_composing();
+            //  self.input_char('。');
+            //  self.start_conversion(false)
+            //  //  self.commit_composing();
+            //},
+            //Keysym::KEY_COMMA => {
+            //  self.input_char('、');
+            //  self.start_conversion(false)
+            //},
             _ => {
                 if let Some(ch) = key.to_char()
                     && !key.modifiers.control_key
                     && !key.modifiers.alt_key
                 {
+                    // 記号が入力されたら input_char() して start_conversion() しよう。
+                    if !ch.is_ascii_uppercase() && !ch.is_ascii_alphabetic() {
+                      self.input_char(ch);
+                      return self.start_conversion(false);
+                    };
+
                     // Detect Shift+letter: shift modifier with alphabetic, OR uppercase keysym.
                     // fcitx5 may resolve Shift into the keysym (sending 'A' instead of 'a'+shift).
                     let is_shift_alpha =
