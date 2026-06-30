@@ -134,11 +134,11 @@ impl InputMethodEngine {
 
         // ctrl+j は hiragana モードに入る
         if key.modifiers.control_key && key.keysym == Keysym::KEY_J {
-          self.input_mode = InputMode::Alphabet;
+          self.input_mode = InputMode::Hiragana;
           return EngineResult::consumed();
         }
         if key.modifiers.control_key && key.keysym == Keysym::KEY_J_UPPER {
-          self.input_mode = InputMode::Alphabet;
+          self.input_mode = InputMode::Hiragana;
           return EngineResult::consumed();
         }
 

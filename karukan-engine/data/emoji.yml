@@ -1926,11 +1926,131 @@ descriptions:
   🫷: ちょっと待って
   🫸: ちょっと待って
 entries:
+  - char: 'μ'
+    readings:
+      - みゅー
+    triggers:
+      - mu
+  - char: 'レザー'
+    readings:
+      - れざー
+    triggers:
+      - leather
+  - char: 'ソフト'
+    readings:
+      - そふと
+    triggers:
+      - soft
+  - char: 'イタリアン'
+    readings:
+      - いたりあん
+    triggers:
+      - italian
+  - char: 'ストラップ'
+    readings:
+      - すとらっぷ
+    triggers:
+      - strap
+  - char: 'スリーブ'
+    readings:
+      - すりーぶ
+    triggers:
+      - sleeve
+  - char: 'モード'
+    readings:
+      - もーど
+    triggers:
+      - mode
+  - char: 'ユニバーサル'
+    readings:
+      - ゆにばーさる
+    triggers:
+      - universal
+  - char: 'Ω'
+    readings:
+      - おーむ
+    triggers:
+      - ohm
+  - char: 'ビルド'
+    readings:
+      - びるど
+    triggers:
+      - build
+  - char: 'ホース'
+    readings:
+      - ほーす
+    triggers:
+      - hose
+  - char: 'タイヤ'
+    readings:
+      - たいや
+    triggers:
+      - tire
+  - char: 'パーツ'
+    readings:
+      - ぱーつ
+    triggers:
+      - parts
+  - char: 'レール'
+    readings:
+      - れーる
+    triggers:
+      - rail
+  - char: 'チェック'
+    readings:
+      - ちぇっく
+    triggers:
+      - check
+  - char: 'スイッチ'
+    readings:
+      - すいっち
+    triggers:
+      - switch
+  - char: 'タクト'
+    readings:
+      - たくと
+    triggers:
+      - tact
+  - char: 'ヘッダ'
+    readings:
+      - へっだ
+    triggers:
+      - header
+  - char: 'ピン'
+    readings:
+      - ぴん
+    triggers:
+      - pin
+  - char: 'レポジトリ'
+    readings:
+      - れぽじとり
+    triggers:
+      - repository
+  - char: 'ブランチ'
+    readings:
+      - ぶらんち
+    triggers:
+      - branch
+  - char: 'エレコム'
+    readings:
+      - えれこむ
+    triggers:
+      - elecom
   - char: 'ストレス'
     readings:
       - すとれす
     triggers:
       - stress
+  - char: 'レビュー'
+    readings:
+      - れびゅー
+    triggers:
+      - review
+  - char: 'レベル'
+    readings:
+      - れべる
+    triggers:
+      - level
   - char: '#️⃣'
     readings:
       - かこみすうじ
