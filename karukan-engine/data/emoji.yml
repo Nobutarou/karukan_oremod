@@ -2031,6 +2031,41 @@ entries:
       - ぶらんち
     triggers:
       - branch
+  - char: 'ソール'
+    readings:
+      - そーる
+    triggers:
+      - soul
+  - char: 'ボール'
+    readings:
+      - ぼーる
+    triggers:
+      - ball
+  - char: 'トラック'
+    readings:
+      - とらっく
+    triggers:
+      - track
+  - char: 'シリーズ'
+    readings:
+      - しりーず
+    triggers:
+      - series
+  - char: 'コンピューター'
+    readings:
+      - こんぴゅーたー
+    triggers:
+      - computer
+  - char: 'マウス'
+    readings:
+      - まうす
+    triggers:
+      - mouse
+  - char: 'パッド'
+    readings:
+      - ぱっど
+    triggers:
+      - pad
   - char: 'エレコム'
     readings:
       - えれこむ
