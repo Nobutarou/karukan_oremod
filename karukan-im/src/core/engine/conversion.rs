@@ -504,22 +504,23 @@ impl InputMethodEngine {
         }
 
         // Prefix match (predictive)
-        for (full_reading, surface, _score) in cache.prefix_lookup(reading) {
-            if candidates.len() >= MAX_LEARNING_CANDIDATES {
-                break;
-            }
-            if full_reading == reading {
-                continue;
-            }
-            if seen.insert(surface.clone()) {
-                candidates.push(Candidate {
-                    text: surface,
-                    reading: Some(full_reading),
-                    source_label: Some(label.clone()),
-                    description: None,
-                });
-            }
-        }
+        // 予測嫌い
+        // for (full_reading, surface, _score) in cache.prefix_lookup(reading) {
+        //     if candidates.len() >= MAX_LEARNING_CANDIDATES {
+        //         break;
+        //     }
+        //     if full_reading == reading {
+        //         continue;
+        //     }
+        //     if seen.insert(surface.clone()) {
+        //         candidates.push(Candidate {
+        //             text: surface,
+        //             reading: Some(full_reading),
+        //             source_label: Some(label.clone()),
+        //             description: None,
+        //         });
+        //     }
+        // }
 
         candidates
     }

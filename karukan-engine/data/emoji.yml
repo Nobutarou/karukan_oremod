@@ -2066,6 +2066,46 @@ entries:
       - ぱっど
     triggers:
       - pad
+  - char: 'レート'
+    readings:
+      - れーと
+    triggers:
+      - rate
+  - char: 'アウトレット'
+    readings:
+      - あうとれっと
+    triggers:
+      - outlet
+  - char: 'ケーブル'
+    readings:
+      - けーぶる
+    triggers:
+      - cable
+  - char: 'パラコード'
+    readings:
+      - ぱらこーど
+    triggers:
+      - paracode
+  - char: 'マイクロ'
+    readings:
+      - まいくろ
+    triggers:
+      - micro
+  - char: 'クリック'
+    readings:
+      - くりっく
+    triggers:
+      - click
+  - char: 'ポーリング'
+    readings:
+      - ぽーりんぐ
+    triggers:
+      - polling
+  - char: 'ゲーミング'
+    readings:
+      - げーみんぐ
+    triggers:
+      - gaming
   - char: 'エレコム'
     readings:
       - えれこむ
